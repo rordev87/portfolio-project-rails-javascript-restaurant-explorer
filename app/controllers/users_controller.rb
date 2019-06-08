@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :authentication_required, except: [:new, :create]
+  
   def new
     @user = User.new
   end
@@ -12,6 +14,7 @@ class UsersController < ApplicationController
 
     if @user.save
       flash[:notice] = "success|User #{@user.full_name} was successfully created."
+      session[:user_id] = user.id
       redirect_to root_path
     else
       render :new
