@@ -1,0 +1,40 @@
+<%= error_messages_for(f.object) %>
+
+<div class="form-group">
+  <%= f.label :first_name %>
+  <%= f.text_field :first_name, class: "form-control", placeholder: "Please enter a first name" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :last_name %>
+  <%= f.text_field :last_name, class: "form-control", placeholder: "Please enter a last name" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :email %>
+  <%= f.text_field :email, class: "form-control", placeholder: "Please enter an email" %>
+</div>
+
+<div class="form-group">
+  <%= f.label :username %>
+  <%= f.text_field :username, class: "form-control", placeholder: "Please enter a username" %>
+</div>
+
+<div class="form-group">
+
+  <%= f.collection_radio_buttons(:user, :avatar_id, Avatar.all, :id, :name) do |a| %>
+    <div class="custom-control custom-radio custom-control-inline">
+      <%= a.label(class: "custom-control-label") { a.radio_button(class: "custom-control-input") }%>
+    </div>
+  <% end %>
+
+</div>
+
+<div class="form-group">
+  <%= f.label :password %>
+  <%= f.password_field :password, class: "form-control", placeholder: "Please enter a password" %>
+</div>
+
+<div class="form-group mt-3">
+  <%= f.submit submit_text, class: "btn btn-primary" %>
+</div>
