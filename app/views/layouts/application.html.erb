@@ -10,6 +10,20 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <%= render partial: "layouts/navigation" %>
+    </header>
+
+    <%= render partial: "layouts/notice" %>
+
+    <main class="container">
+      <%= yield %>
+    </div>
+
+    <footer>
+      <div class="container">
+        <!-- footer content -->
+      </div>
+    </footer>
   </body>
 </html>
