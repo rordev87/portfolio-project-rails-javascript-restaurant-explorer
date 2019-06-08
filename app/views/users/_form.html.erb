@@ -2,29 +2,29 @@
 
 <div class="form-group">
   <%= f.label :first_name %>
-  <%= f.text_field :first_name, class: "form-control", placeholder: "Please enter a first name" %>
+  <%= f.text_field :first_name, class: "form-control #{@user.errors[:first_name].any? ? 'is-invalid' : ''}", placeholder: "Please enter a first name" %>
 </div>
 
 <div class="form-group">
   <%= f.label :last_name %>
-  <%= f.text_field :last_name, class: "form-control", placeholder: "Please enter a last name" %>
+  <%= f.text_field :last_name, class: "form-control #{@user.errors[:last_name].any? ? 'is-invalid' : ''}", placeholder: "Please enter a last name" %>
 </div>
 
 <div class="form-group">
   <%= f.label :email %>
-  <%= f.text_field :email, class: "form-control", placeholder: "Please enter an email" %>
+  <%= f.text_field :email, class: "form-control #{@user.errors[:email].any? ? 'is-invalid' : ''}", placeholder: "Please enter an email" %>
 </div>
 
 <div class="form-group">
   <%= f.label :username %>
-  <%= f.text_field :username, class: "form-control", placeholder: "Please enter a username" %>
+  <%= f.text_field :username, class: "form-control #{@user.errors[:username].any? ? 'is-invalid' : ''}", placeholder: "Please enter a username" %>
 </div>
 
 <div class="form-group">
-
-  <%= f.collection_radio_buttons(:user, :avatar_id, Avatar.all, :id, :name) do |a| %>
-    <div class="custom-control custom-radio custom-control-inline">
-      <%= a.label(class: "custom-control-label") { a.radio_button(class: "custom-control-input") }%>
+  <%= f.label "Select an Avatar" %><br>
+  <%= f.collection_radio_buttons(:avatar_id, Avatar.all, :id, :name) do |a| %>
+    <div class="form-check form-check-inline">
+      <%= a.label(class: "form-check-label") { a.radio_button(class: "form-check-input") + a.text } %>
     </div>
   <% end %>
 
@@ -32,7 +32,7 @@
 
 <div class="form-group">
   <%= f.label :password %>
-  <%= f.password_field :password, class: "form-control", placeholder: "Please enter a password" %>
+  <%= f.password_field :password, class: "form-control #{@user.errors[:password].any? ? 'is-invalid' : ''}", placeholder: "Please enter a password" %>
 </div>
 
 <div class="form-group mt-3">
