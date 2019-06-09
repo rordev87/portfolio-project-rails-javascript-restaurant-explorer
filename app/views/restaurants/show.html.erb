@@ -23,7 +23,10 @@
       <!-- single restaurant comment data goes here -->
     </div>
     <% if logged_in? %>
-      <div class="comments-media mt-4">
+      <div class="text-center">
+        <i class="fa fa-ellipsis-v fa-2x" aria-hidden="true"></i>
+      </div>
+      <div class="comments-media mt-2">
         <div id="single-restaurant-new-comment">
           <h5>Add a new comment about this restaurant</h5>
           <form id="add-comment-form" action="/comments" method="post">
