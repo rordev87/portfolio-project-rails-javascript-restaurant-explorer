@@ -11,8 +11,8 @@
 </div>
 
 <div class="row mt-3">
-  <div class="col">
-    <div id="all-restaurants"></div>
+  <div id="all-restaurants" class="col-12">
+
   </div>
 </div>
 
@@ -26,6 +26,7 @@
       $.each(data, function(index, value) {
         // debugger;
         let restaurant = new Restaurant(value);
+        restaurant.phone = restaurant.formatPhone(restaurant.phone);
         let html = restaurant.basicHTML();
         $("#all-restaurants").append(html);
       })
@@ -39,21 +40,36 @@
       this.description = obj.description
       this.phone = obj.phone
       this.email = obj.email
+      this.image = obj.image_url
       this.location = obj.location.city
     }
   }
 
+  Restaurant.prototype.formatPhone = function(phone_number) {
+      var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g; 
+      var subst = '($1) $2-$3';
+      var result = phone_number.replace(re, subst);
+      return result;
+    }
+
   Restaurant.prototype.basicHTML = function() {
     return (`
-      <div>
-        <p>${this.id}</p>
-        <h5><a href="/restaurants/${this.id}">${this.name}</a></h5>
-        <p>${this.description}</p>
-        <p>phone: ${this.phone}</p>
-        <p>email: ${this.email}</p>
-        <p>location: ${this.location}</p>
+      <div class="card mb-3">
+        <div class="row no-gutters">
+          <div class="col-md-4">
+            <img src="/assets/${this.image}" class="card-img" alt="${this.name}" style="border-radius: 0.25rem 0 0 0.25rem;">
+          </div>
+          <div class="col-md-8">
+            <div class="card-body">
+              <h5 class="card-title"><a href="/restaurants/${this.id}">${this.name}</a></h5>
+              <p class="card-text">${this.description}</p>
+              <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small class="text-muted">${this.phone}</small></p>
+              <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small class="text-muted">${this.email}</small></p>
+              <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted">${this.location}</small></p>
+            </div>
+          </div>
+        </div>
       </div>
-      <hr>
     `)
   }
 </script>
