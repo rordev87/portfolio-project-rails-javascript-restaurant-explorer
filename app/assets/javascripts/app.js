@@ -148,13 +148,15 @@ Restaurant.prototype.singleHTML = function() {
 }
 
 function addNewComment(values) {
+  let fullname = $("#user-fullname").attr("data-value");
+  let avatar_url = $("#user-avatar-url").attr("data-value");
   var newComment = $.post('/comments', values);
   newComment.done(function (data) {
     comment = 
         `<div class="comments-media media my-3">
-          <img src="/assets/avatar.png" class="mr-3" alt="">
+          <img src="/assets/${avatar_url}" class="mr-3" alt="${fullname}">
           <div class="media-body">
-            <h5 class="mt-0">Comment from ${data['user_id']}</h5>
+            <h5 class="mt-0">Comment from ${fullname}</h5>
             ${data['body']}
           </div>
           <div class="media-rating">

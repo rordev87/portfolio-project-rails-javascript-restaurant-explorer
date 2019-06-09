@@ -9,6 +9,10 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    if logged_in?
+      @fullname = current_user.full_name
+      @avatar_url = current_user.avatar.image_url
+    end
     respond_to do |format|
       format.html { render :show }
       format.json { render json: @restaurant }
