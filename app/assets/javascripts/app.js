@@ -4,7 +4,19 @@ $(function() {
   }
   if($("#single-restaurant").length) {
     let currentId = parseInt($("#restaurant-id").attr("data-id"));
+    
     getSingleRestaurant(currentId);
+
+    $("#add-comment-form").submit(function(event) {
+      event.preventDefault();
+      let values = $(this).serialize();
+      addNewComment(values);
+      $("#body-entry").val("");
+      $("#rating-entry").val("");
+      if($("#no-comments-listed").length) {
+        $("#no-comments-listed").remove();
+      }
+    })
   }
 })
 
@@ -20,18 +32,20 @@ function getAllRestaurants() {
 }
 
 function getSingleRestaurant(currentId) {
-  $("#single-restaurant").empty();  
+  $("#form-restaurant-id").val(currentId);
+  $("#single-restaurant").empty(); 
+  $("#single-restaurant-comments").empty(); 
   $.get("/restaurants/" + currentId + ".json", function(data) {
     let restaurant = new Restaurant(data);
     restaurant.phone = restaurant.formatPhone(restaurant.phone)
     let singleHtml = restaurant.singleHTML();
     let pager = restaurant.buildPager(currentId)
+    let comments = restaurant.buildComments(data.comments)
     $("#restaurant-name").text(restaurant.name);
     $("#single-restaurant").append(singleHtml).append(pager);
+    $("#single-restaurant-comments").append(comments);
   });
 }
-
-
 
 class Restaurant {
   constructor(obj) {
@@ -43,6 +57,30 @@ class Restaurant {
     this.image = obj.image_url
     this.location = obj.location.city
   }
+}
+
+Restaurant.prototype.buildComments = function(commentsData) {
+  commentsArray = []
+  if(commentsData.length > 0) {
+    $.each(commentsData, function(index, value) {
+      comment = 
+        `<div class="comments-media media my-3">
+          <img src="/assets/${value.user.avatar.image_url}" class="mr-3" alt="${value.user.avatar.name}">
+          <div class="media-body">
+            <h5 class="mt-0">Comment from ${value.user.first_name} ${value.user.last_name}</h5>
+            ${value.body}
+          </div>
+          <div class="media-rating">
+            ${value.rating}
+          </div>
+        </div>`;
+      commentsArray.push(comment);
+    })
+  } else {
+    comment = `<div id="no-comments-listed" class="comments-media my-3">No Comments for this Restaurant</div>`
+    commentsArray.push(comment);
+  }
+  return commentsArray;
 }
 
 Restaurant.prototype.buildPager = function(currentId) {
@@ -107,4 +145,22 @@ Restaurant.prototype.singleHTML = function() {
       </div>
     </div>
   `)
+}
+
+function addNewComment(values) {
+  var newComment = $.post('/comments', values);
+  newComment.done(function (data) {
+    comment = 
+        `<div class="comments-media media my-3">
+          <img src="/assets/avatar.png" class="mr-3" alt="">
+          <div class="media-body">
+            <h5 class="mt-0">Comment from ${data['user_id']}</h5>
+            ${data['body']}
+          </div>
+          <div class="media-rating">
+            ${data['rating']}
+          </div>
+        </div>`;
+    $("#single-restaurant-comments").append(comment);
+  });
 }

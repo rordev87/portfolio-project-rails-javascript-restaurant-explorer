@@ -1,6 +1,6 @@
 <div class="row mt-5">
   <div class="col">
-    <div id="restaurant-id" data-id="<%= @restaurant.id %>"></div>
+    <span id="restaurant-id" data-id="<%= @restaurant.id %>"></span>
     <h3 id="restaurant-name"></h3>
   </div>
 </div>
@@ -15,8 +15,32 @@
   <div id="single-restaurant" class="col-6">
     <!-- single restaurant data goes here -->
   </div>
-  <div id="single-restaurant-comments" class="col-6">
-    <!-- single restaurant comment data goes here -->
+  <div class="col-6">
+    <h5>Comments</h5>
+    <div id="single-restaurant-comments">
+      <!-- single restaurant comment data goes here -->
+    </div>
+    <% if logged_in? %>
+      <div class="comments-media mt-4">
+        <div id="single-restaurant-new-comment">
+          <h5>Add a new comment about this restaurant</h5>
+          <form id="add-comment-form" action="/comments" method="post">
+            <input type=hidden name="authenticity_token" value="<%= form_authenticity_token %>">
+            <input id="form-restaurant-id" type="hidden" name="comment[restaurant_id]" value="">
+            <input type="hidden" name="comment[user_id]" value="<%= current_user.id %>">
+            <div class="form-group">
+              <label for="body-entry">Comments</label>
+              <input id="body-entry" type="text" class="form-control" name="comment[body]">
+            </div>
+            <div class="form-group">
+              <label for="rating-entry">Rating</label>
+              <input id="rating-entry" type="text" class="form-control" name="comment[rating]">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Comment</button>
+          </form>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

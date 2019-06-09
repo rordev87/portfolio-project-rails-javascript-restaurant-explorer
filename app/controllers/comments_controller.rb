@@ -6,4 +6,20 @@ class CommentsController < ApplicationController
       format.json { render json: @comment }
     end
   end
+
+  def create
+    @comment = Comment.new(comment_params)
+
+    if @comment.save
+      render json: @comment, status: 201
+    else
+
+    end
+  end
+
+  private
+
+  def comment_params
+    params.require(:comment).permit(:body, :rating, :user_id, :restaurant_id)
+  end
 end

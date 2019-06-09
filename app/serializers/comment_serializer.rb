@@ -1,3 +1,3 @@
 class CommentSerializer < ActiveModel::Serializer
-  attributes :body, :rating
+  attributes :body, :rating, :user_id
 end
