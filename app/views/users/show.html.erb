@@ -1,2 +1,19 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<div class="row mt-5">
+  <div class="col">
+    <h3>Your Account</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <h5 class="mb-3"><%= @user.full_name %></h5>
+    <p>Username: <%= @user.username %></p>
+    <p>Email: <%= @user.email %></p>
+  </div>
+</div>

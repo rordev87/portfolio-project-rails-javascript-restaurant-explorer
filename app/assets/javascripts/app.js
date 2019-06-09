@@ -25,6 +25,7 @@ function getAllRestaurants() {
     $.each(data, function(index, value) {
       let restaurant = new Restaurant(value);
       restaurant.phone = restaurant.formatPhone(restaurant.phone);
+      restaurant.cuisines = restaurant.getCuisineNames(restaurant.cuisines);
       let html = restaurant.basicHTML();
       $("#all-restaurants").append(html);
     })
@@ -37,7 +38,8 @@ function getSingleRestaurant(currentId) {
   $("#single-restaurant-comments").empty(); 
   $.get("/restaurants/" + currentId + ".json", function(data) {
     let restaurant = new Restaurant(data);
-    restaurant.phone = restaurant.formatPhone(restaurant.phone)
+    restaurant.phone = restaurant.formatPhone(restaurant.phone);
+    restaurant.cuisines = restaurant.getCuisineNames(restaurant.cuisines);
     let singleHtml = restaurant.singleHTML();
     let pager = restaurant.buildPager(currentId)
     let comments = restaurant.buildComments(data.comments)
@@ -56,6 +58,7 @@ class Restaurant {
     this.email = obj.email
     this.image = obj.image_url
     this.location = obj.location.city
+    this.cuisines = obj.cuisines
   }
 }
 
@@ -71,7 +74,7 @@ Restaurant.prototype.buildComments = function(commentsData) {
             ${value.body}
           </div>
           <div class="media-rating">
-            ${value.rating}
+          <i class="fa fa-star text-warning" aria-hidden="true"></i> ${value.rating}
           </div>
         </div>`;
       commentsArray.push(comment);
@@ -101,11 +104,25 @@ Restaurant.prototype.buildPager = function(currentId) {
 }
 
 Restaurant.prototype.formatPhone = function(phone_number) {
-    var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g; 
-    var subst = '($1) $2-$3';
-    var result = phone_number.replace(re, subst);
-    return result;
+  var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g; 
+  var subst = '($1) $2-$3';
+  var result = phone_number.replace(re, subst);
+  return result;
+}
+
+Restaurant.prototype.getCuisineNames = function(cuisinesArray) {
+  cuisines = "";
+  if(cuisinesArray.length > 0) {
+    cuisinesArray.forEach(function(cuisine, index) {
+      if(index == cuisinesArray.length - 1) {
+        cuisines += `<p class="ml-1">${cuisine.name}</p>`
+      } else {
+        cuisines += `<p class="ml-1"> / ${cuisine.name}</p>`
+      }
+    })    
   }
+  return cuisines;
+}
 
 Restaurant.prototype.basicHTML = function() {
   return (`
@@ -119,9 +136,14 @@ Restaurant.prototype.basicHTML = function() {
             <h5 class="card-title"><a href="/restaurants/${this.id}">${this.name}</a></h5>
             <p class="card-text">${this.description}</p>
             <div class="card-info-box">
-              <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small class="text-muted">${this.phone}</small></p>
-              <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small class="text-muted">${this.email}</small></p>
-              <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted">${this.location}</small></p>
+              <div class="restaurant-contact">
+                <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small class="text-muted">${this.phone}</small></p>
+                <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small class="text-muted">${this.email}</small></p>
+                <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted">${this.location}</small></p>
+              </div>
+              <div class="restaurant-cuisines">
+                ${this.cuisines} <p class="ml-1"><strong>Cuisines</strong>: </p>
+              </div>
             </div>
           </div>
         </div>
@@ -138,9 +160,13 @@ Restaurant.prototype.singleHTML = function() {
         <h5 id="restaurant-name-card" class="card-title">${this.name}</h5>
         <p id="restaurant-description" class="card-text">${this.description}</p>
         <div class="card-info-box">
-          <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small id="restaurant-phone" class="text-muted">${this.phone}</small></p>
-          <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small id="restaurant-email" class="text-muted">${this.email}</small></p>
-          <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small id="restaurant-location" class="text-muted">${this.location}</small></p>
+        <div class="restaurant-contact">
+          <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small class="text-muted">${this.phone}</small></p>
+          <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small class="text-muted">${this.email}</small></p>
+          <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted">${this.location}</small></p>
+        </div>
+        <div class="restaurant-cuisines">
+          ${this.cuisines} <p class="ml-1"><strong>Cuisines</strong>: </p>
         </div>
       </div>
     </div>
@@ -160,7 +186,7 @@ function addNewComment(values) {
             ${data['body']}
           </div>
           <div class="media-rating">
-            ${data['rating']}
+          <i class="fa fa-star text-warning" aria-hidden="true"></i> ${data['rating']}
           </div>
         </div>`;
     $("#single-restaurant-comments").append(comment);

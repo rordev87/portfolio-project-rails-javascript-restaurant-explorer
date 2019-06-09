@@ -16,9 +16,30 @@
   }
 
   .card-info-box {
-    flex: 0;
+    width: 100%;
+    display: flex;
+    flex: 0 70px;
     border-top: 1px solid #EEE;
     padding-top: 10px;
+
+    .restaurant-contact {
+      flex: 0 210px;
+      align-self: flex-start;
+      justify-content: flex-start;
+    }
+
+    .restaurant-cuisines {
+      flex: 1;
+      width: 100%;
+      align-content: flex-end;
+
+      justify-content: flex-end;
+
+      p {
+        font-size: 0.9rem;
+        float: right;
+      }
+    }
   }
 }
 
