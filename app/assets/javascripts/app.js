@@ -24,6 +24,7 @@ function getSingleRestaurant() {
     let restaurant = new Restaurant(data);
     restaurant.phone = restaurant.formatPhone(restaurant.phone)
     let singleHtml = restaurant.singleHTML();
+    $("#restaurant-name").text(restaurant.name);
     $("#single-restaurant").append(singleHtml)
   })
 }
