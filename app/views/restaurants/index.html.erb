@@ -1,2 +1,59 @@
-<h1>Restaurants#index</h1>
-<p>Find me in app/views/restaurants/index.html.erb</p>
+<div class="row mt-5">
+  <div class="col">
+    <h3>Restaurants</h3>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col">
+    <hr>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col">
+    <div id="all-restaurants"></div>
+  </div>
+</div>
+
+<script>
+  $(function() {
+    getRestaurants()
+  })
+
+  function getRestaurants() {
+    $.get("/restaurants.json", function(data) {
+      $.each(data, function(index, value) {
+        // debugger;
+        let restaurant = new Restaurant(value);
+        let html = restaurant.basicHTML();
+        $("#all-restaurants").append(html);
+      })
+    })
+  }
+
+  class Restaurant {
+    constructor(obj) {
+      this.id = obj.id
+      this.name = obj.name
+      this.description = obj.description
+      this.phone = obj.phone
+      this.email = obj.email
+      this.location = obj.location.city
+    }
+  }
+
+  Restaurant.prototype.basicHTML = function() {
+    return (`
+      <div>
+        <p>${this.id}</p>
+        <h5><a href="/restaurants/${this.id}">${this.name}</a></h5>
+        <p>${this.description}</p>
+        <p>phone: ${this.phone}</p>
+        <p>email: ${this.email}</p>
+        <p>location: ${this.location}</p>
+      </div>
+      <hr>
+    `)
+  }
+</script>
