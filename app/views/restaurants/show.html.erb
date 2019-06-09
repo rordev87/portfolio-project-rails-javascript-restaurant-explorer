@@ -32,11 +32,17 @@
             <input type="hidden" name="comment[user_id]" value="<%= current_user.id %>">
             <div class="form-group">
               <label for="body-entry">Comments</label>
-              <input id="body-entry" type="text" class="form-control" name="comment[body]">
+              <textarea class="form-control" id="body-entry" name="comment[body]" rows="3"></textarea>
             </div>
             <div class="form-group">
               <label for="rating-entry">Rating</label>
-              <input id="rating-entry" type="text" class="form-control" name="comment[rating]">
+              <select class="form-control" id="rating-entry" name="comment[rating]">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
             </div>
             <button type="submit" class="btn btn-primary">Add Comment</button>
           </form>
