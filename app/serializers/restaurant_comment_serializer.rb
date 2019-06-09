@@ -1,3 +1,4 @@
 class RestaurantCommentSerializer < ActiveModel::Serializer
-  attributes :body, :rating, :user_id
+  attributes :body, :rating
+  belongs_to :user
 end
