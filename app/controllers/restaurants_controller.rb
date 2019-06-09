@@ -9,5 +9,9 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = Restaurant.find(params[:id])
+    respond_to do |format|
+      format.html { render :show }
+      format.json { render json: @restaurant }
+    end
   end
 end

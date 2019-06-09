@@ -1,3 +1,21 @@
 // Place all the styles related to the restaurants controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.card-body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+  .card-title {
+    flex: 0;
+  }
+
+  .card-text {
+    flex: 1;
+  }
+
+  .card-info-box {
+    flex: 0;
+  }
+}

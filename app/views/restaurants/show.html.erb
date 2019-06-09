@@ -1,6 +1,7 @@
 <div class="row mt-5">
   <div class="col">
-    <h3><%= @restaurant.name %></h3>
+    <div id="restaurant-id" data-id="<%= @restaurant.id %>"></div>
+    <h3 id="restaurant-name"></h3>
   </div>
 </div>
 
@@ -11,9 +12,12 @@
 </div>
 
 <div class="row mt-3">
-  <div class="col">
-    <div id="single-restaurant">
-      <%= @restaurant.description %>
-    </div>
+  <div id="single-restaurant" class="col-6">
+    <!-- single restaurant data goes here -->
+  </div>
+  <div id="single-restaurant-comments" class="col-6">
+    <!-- single restaurant comment data goes here -->
   </div>
 </div>
+
+
