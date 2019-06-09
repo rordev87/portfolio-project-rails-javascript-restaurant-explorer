@@ -3,7 +3,8 @@ $(function() {
     getAllRestaurants()
   }
   if($("#single-restaurant").length) {
-    getSingleRestaurant()
+    let currentId = parseInt($("#restaurant-id").attr("data-id"));
+    getSingleRestaurant(currentId);
   }
 })
 
@@ -18,16 +19,19 @@ function getAllRestaurants() {
   })
 }
 
-function getSingleRestaurant() {
-  let currentId = parseInt($("#restaurant-id").attr("data-id"));
+function getSingleRestaurant(currentId) {
+  $("#single-restaurant").empty();  
   $.get("/restaurants/" + currentId + ".json", function(data) {
     let restaurant = new Restaurant(data);
     restaurant.phone = restaurant.formatPhone(restaurant.phone)
     let singleHtml = restaurant.singleHTML();
+    let pager = restaurant.buildPager(currentId)
     $("#restaurant-name").text(restaurant.name);
-    $("#single-restaurant").append(singleHtml)
-  })
+    $("#single-restaurant").append(singleHtml).append(pager);
+  });
 }
+
+
 
 class Restaurant {
   constructor(obj) {
@@ -39,6 +43,23 @@ class Restaurant {
     this.image = obj.image_url
     this.location = obj.location.city
   }
+}
+
+Restaurant.prototype.buildPager = function(currentId) {
+  let previousId = parseInt(currentId) - 1;
+  let nextId = parseInt(currentId) + 1;
+  return (`
+    <nav aria-label="pager">
+      <ul class="pagination">
+        <li class="page-item ${currentId == 1 ? 'disabled' : ''}">
+          <a id="previous-restaurant" class="page-link" onclick="getSingleRestaurant(${previousId}); return false;" href="#" tabindex="-1" aria-disabled="${currentId == 1 ? 'true' : 'false'}">Previous</a>
+        </li>
+        <li class="page-item">
+          <a id="next-restaurant" class="page-link" onclick="getSingleRestaurant(${nextId}); return false;" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
+  `)
 }
 
 Restaurant.prototype.formatPhone = function(phone_number) {
