@@ -1,28 +1,39 @@
-$(function() {
-  if($("#all-restaurants").length) {
+$(function () {
+  if ($("#all-restaurants").length) {
     getAllRestaurants()
   }
-  if($("#single-restaurant").length) {
+
+  if ($("#single-restaurant").length) {
     let currentId = parseInt($("#restaurant-id").attr("data-id"));
-    
+
     getSingleRestaurant(currentId);
 
-    $("#add-comment-form").submit(function(event) {
+    $("#add-comment-form").submit(function (event) {
       event.preventDefault();
       let values = $(this).serialize();
       addNewComment(values);
       $("#body-entry").val("");
       $("#rating-entry").val("");
-      if($("#no-comments-listed").length) {
+      if ($("#no-comments-listed").length) {
         $("#no-comments-listed").remove();
       }
     })
   }
+
+  $("#location_select").on("change", function () {
+    $("#cuisine_select").val("");
+    filterRestaurants("location", this.value);
+  })
+
+  $("#cuisine_select").on("change", function () {
+    $("#location_select").val("");
+    filterRestaurants("cuisine", this.value);
+  })
 })
 
 function getAllRestaurants() {
-  $.get("/restaurants.json", function(data) {
-    $.each(data, function(index, value) {
+  $.get("/restaurants.json", function (data) {
+    $.each(data, function (index, value) {
       let restaurant = new Restaurant(value);
       restaurant.phone = restaurant.formatPhone(restaurant.phone);
       restaurant.cuisines = restaurant.getCuisineNames(restaurant.cuisines);
@@ -34,9 +45,9 @@ function getAllRestaurants() {
 
 function getSingleRestaurant(currentId) {
   $("#form-restaurant-id").val(currentId);
-  $("#single-restaurant").empty(); 
-  $("#single-restaurant-comments").empty(); 
-  $.get("/restaurants/" + currentId + ".json", function(data) {
+  $("#single-restaurant").empty();
+  $("#single-restaurant-comments").empty();
+  $.get("/restaurants/" + currentId + ".json", function (data) {
     let restaurant = new Restaurant(data);
     restaurant.phone = restaurant.formatPhone(restaurant.phone);
     restaurant.cuisines = restaurant.getCuisineNames(restaurant.cuisines);
@@ -62,11 +73,55 @@ class Restaurant {
   }
 }
 
-Restaurant.prototype.buildComments = function(commentsData) {
+function filterRestaurants(type, search) {
+  $(".card").css("display", "block");
+  $("#no-restaurants").css("display", "none");
+  if (search != "") {
+    if (type == "location") {
+      let allCards = $(".card");
+      allCards.each(function (index, value) {
+        if (value.getElementsByClassName("text-location")[0].innerText != search) {
+          $(".card").eq(index).css("display", "none");
+        }
+      });
+
+      let visible = $(".card[style='display: block;']").length;
+      if (visible == 0) {
+        $("#no-restaurants").css("display", "block")
+      }
+    } else if (type == "cuisine") {
+      let allCards = $(".card");
+      allCards.each(function (index, value) {
+        let entries = value.getElementsByClassName("restaurant-cuisines")[0].getElementsByTagName("p");
+        // debugger;
+        let match = false;
+
+        for (var i = 0; i < entries.length; i++) {
+          if (entries[i].innerText != search) {
+            match = false;
+          } else {
+            match = true;
+            return;
+          }
+        }
+        if (match != true) {
+          $(".card").eq(index).css("display", "none");
+        }
+      });
+
+      let visible = $(".card[style='display: block;']").length;
+      if (visible == 0) {
+        $("#no-restaurants").css("display", "block")
+      }
+    }
+  }
+}
+
+Restaurant.prototype.buildComments = function (commentsData) {
   commentsArray = []
-  if(commentsData.length > 0) {
-    $.each(commentsData, function(index, value) {
-      comment = 
+  if (commentsData.length > 0) {
+    $.each(commentsData, function (index, value) {
+      comment =
         `<div class="comments-media media my-3">
           <img src="/assets/${value.user.avatar.image_url}" class="mr-3" alt="${value.user.avatar.name}">
           <div class="media-body">
@@ -86,7 +141,7 @@ Restaurant.prototype.buildComments = function(commentsData) {
   return commentsArray;
 }
 
-Restaurant.prototype.buildPager = function(currentId) {
+Restaurant.prototype.buildPager = function (currentId) {
   let previousId = parseInt(currentId) - 1;
   let nextId = parseInt(currentId) + 1;
   return (`
@@ -103,28 +158,28 @@ Restaurant.prototype.buildPager = function(currentId) {
   `)
 }
 
-Restaurant.prototype.formatPhone = function(phone_number) {
-  var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g; 
+Restaurant.prototype.formatPhone = function (phone_number) {
+  var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g;
   var subst = '($1) $2-$3';
   var result = phone_number.replace(re, subst);
   return result;
 }
 
-Restaurant.prototype.getCuisineNames = function(cuisinesArray) {
+Restaurant.prototype.getCuisineNames = function (cuisinesArray) {
   cuisines = "";
-  if(cuisinesArray.length > 0) {
-    cuisinesArray.forEach(function(cuisine, index) {
-      if(index == cuisinesArray.length - 1) {
+  if (cuisinesArray.length > 0) {
+    cuisinesArray.forEach(function (cuisine, index) {
+      if (index == cuisinesArray.length - 1) {
         cuisines += `<p class="ml-1">${cuisine.name}</p>`
       } else {
-        cuisines += `<p class="ml-1"> / ${cuisine.name}</p>`
+        cuisines += `<p class="ml-1">${cuisine.name}</p><p>,</p>`
       }
-    })    
+    })
   }
   return cuisines;
 }
 
-Restaurant.prototype.basicHTML = function() {
+Restaurant.prototype.basicHTML = function () {
   return (`
     <div class="card mb-4">
       <div class="row no-gutters">
@@ -139,7 +194,7 @@ Restaurant.prototype.basicHTML = function() {
               <div class="restaurant-contact">
                 <p class="card-text mb-n1"><i class="fa fa-phone" style="color: black;"></i> <small class="text-muted">${this.phone}</small></p>
                 <p class="card-text mb-n1"><i class="fa fa-envelope" style="color: black;"></i> <small class="text-muted">${this.email}</small></p>
-                <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted">${this.location}</small></p>
+                <p class="card-text"><i class="fa fa-map-marker" style="color: black;"></i> <small class="text-muted text-location">${this.location}</small></p>
               </div>
               <div class="restaurant-cuisines">
                 ${this.cuisines} <p class="ml-1"><strong>Cuisines</strong>: </p>
@@ -152,7 +207,7 @@ Restaurant.prototype.basicHTML = function() {
   `)
 }
 
-Restaurant.prototype.singleHTML = function() {
+Restaurant.prototype.singleHTML = function () {
   return (`
     <div class="card mb-3">
       <img id="restaurant-image" src="/assets/${this.image}" class="card-img-top" alt="${this.name}">
@@ -178,8 +233,8 @@ function addNewComment(values) {
   let avatar_url = $("#user-avatar-url").attr("data-value");
   var newComment = $.post('/comments', values);
   newComment.done(function (data) {
-    comment = 
-        `<div class="comments-media media my-3">
+    comment =
+      `<div class="comments-media media my-3">
           <img src="/assets/${avatar_url}" class="mr-3" alt="${fullname}">
           <div class="media-body">
             <h5 class="mt-0">Comment from ${fullname}</h5>

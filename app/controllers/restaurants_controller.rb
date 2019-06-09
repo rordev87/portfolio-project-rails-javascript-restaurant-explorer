@@ -1,6 +1,8 @@
 class RestaurantsController < ApplicationController
   def index
     @restaurants = Restaurant.all
+    @locations = Location.all
+    @cuisines = Cuisine.all
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @restaurants }
