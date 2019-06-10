@@ -5,7 +5,7 @@ class RestaurantsController < ApplicationController
     @cuisines = Cuisine.all
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @restaurants }
+      format.json { render json: @restaurants.to_json(only: [:id, :name, :description, :phone, :email, :image_url], include: [location: { only: :city}, cuisines: { only: :name }]) }
     end
   end
 
