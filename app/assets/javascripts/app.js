@@ -157,7 +157,6 @@ Restaurant.prototype.buildComments = function (commentsData) {
 }
 
 Restaurant.prototype.buildPager = function (currentId, all_ids) {
-
   let idsString = all_ids.split("|");
   let ids = idsString.map(x => parseInt(x));
   let currentIndex = ids.indexOf(currentId);
