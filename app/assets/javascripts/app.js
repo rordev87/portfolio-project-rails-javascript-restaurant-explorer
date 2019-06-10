@@ -52,7 +52,8 @@ function getSingleRestaurant(currentId) {
     restaurant.phone = restaurant.formatPhone(restaurant.phone);
     restaurant.cuisines = restaurant.getCuisineNames(restaurant.cuisines);
     let singleHtml = restaurant.singleHTML();
-    let pager = restaurant.buildPager(currentId)
+    let all_ids = $("#restaurant-all-ids").attr("data-id");
+    let pager = restaurant.buildPager(currentId, all_ids)
     let comments = restaurant.buildComments(data.comments)
     $("#restaurant-name").text(restaurant.name);
     $("#single-restaurant").append(singleHtml).append(pager);
@@ -141,17 +142,34 @@ Restaurant.prototype.buildComments = function (commentsData) {
   return commentsArray;
 }
 
-Restaurant.prototype.buildPager = function (currentId) {
-  let previousId = parseInt(currentId) - 1;
-  let nextId = parseInt(currentId) + 1;
+Restaurant.prototype.buildPager = function (currentId, all_ids) {
+
+  let idsString = all_ids.split("|");
+  let ids = idsString.map(x => parseInt(x));
+  let currentIndex = ids.indexOf(currentId);
+
+  let isFirst = false;
+  let isLast = false;
+
+  if (currentIndex == 0) {
+    isFirst = true;
+  }
+
+  if (currentIndex == ids.length - 1) {
+    isLast = true;
+  }
+
+  let previousId = ids[parseInt(currentIndex) - 1];
+  let nextId = ids[parseInt(currentIndex) + 1];
+
   return (`
     <nav aria-label="pager">
       <ul class="pagination">
-        <li class="page-item ${currentId == 1 ? 'disabled' : ''}">
-          <a id="previous-restaurant" class="page-link" onclick="getSingleRestaurant(${previousId}); return false;" href="#" tabindex="-1" aria-disabled="${currentId == 1 ? 'true' : 'false'}">Previous</a>
+        <li class="page-item ${isFirst ? 'disabled' : ''}">
+          <a id="previous-restaurant" class="page-link" onclick="getSingleRestaurant(${previousId}); return false;" href="#" tabindex="-1" aria-disabled="${isFirst ? 'true' : 'false'}">Previous</a>
         </li>
-        <li class="page-item">
-          <a id="next-restaurant" class="page-link" onclick="getSingleRestaurant(${nextId}); return false;" href="#">Next</a>
+        <li class="page-item ${isLast ? 'disabled' : ''}"">
+          <a id="next-restaurant" class="page-link" onclick="getSingleRestaurant(${nextId}); return false;" href="#" aria-disabled="${isLast ? 'true' : 'false'}">Next</a>
         </li>
       </ul>
     </nav>

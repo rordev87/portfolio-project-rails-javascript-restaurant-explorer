@@ -10,6 +10,7 @@ class RestaurantsController < ApplicationController
   end
 
   def show
+    @restaurant_ids = Restaurant.all_ids
     @restaurant = Restaurant.find(params[:id])
     if logged_in?
       @fullname = current_user.full_name

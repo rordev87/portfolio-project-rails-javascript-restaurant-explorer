@@ -1,6 +1,7 @@
 <main class="container">
   <div class="row mt-5">
     <div class="col">
+      <span id="restaurant-all-ids" data-id="<%= @restaurant_ids.join("|") %>"></span>
       <span id="restaurant-id" data-id="<%= @restaurant.id %>"></span>
       <span id="user-fullname" data-value="<%= @fullname %>"></span>
       <span id="user-avatar-url" data-value="<%= @avatar_url %>"></span>
@@ -15,10 +16,10 @@
   </div>
 
   <div class="row mt-3">
-    <div id="single-restaurant" class="col-6">
+    <div id="single-restaurant" class="col-lg-6 col-md-12">
       <!-- single restaurant data goes here -->
     </div>
-    <div class="col-6">
+    <div class="col-lg-6 col-md-12">
       <h5>Comments</h5>
       <div id="single-restaurant-comments">
         <!-- single restaurant comment data goes here -->
