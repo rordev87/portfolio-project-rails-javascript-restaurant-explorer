@@ -1,39 +1,41 @@
-<div class="row mt-5 mb-n3">
-  <div class="col">
-    <h3>Restaurants</h3>
-    <p>Explore all the restaurants in the local area.</p>
+<main class="container">
+  <div class="row mt-5 mb-n3">
+    <div class="col">
+      <h3>Restaurants</h3>
+      <p>Explore all the restaurants in the local area.</p>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <hr>
+  <div class="row">
+    <div class="col">
+      <hr>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <div class="form-row align-items-center">
-      <div class="col-md-5 my-1">
-        <label class="sr-only" for="location_select">Locations</label>
-        <%= select_tag 'location_select', options_for_select(@locations.collect{ |l| [l.city, l.city] }), class: "form-control", prompt: "Select a Location"%>
-      </div>
-      <div class="col-md-2 my-1 text-center">
-      OR
-      </div>
-      <div class="col-md-5 my-1">
-        <label class="sr-only" for="cusinie_select">Cuisines</label>
-        <%= select_tag 'cuisine_select', options_for_select(@cuisines.collect{ |c| [c.name, c.name] }), class: "form-control", prompt: "Select a Cuisine"%>
+  <div class="row">
+    <div class="col">
+      <div class="form-row align-items-center">
+        <div class="col-md-5 my-1">
+          <label class="sr-only" for="location_select">Locations</label>
+          <%= select_tag 'location_select', options_for_select(@locations.collect{ |l| [l.city, l.city] }), class: "form-control", prompt: "Select a Location"%>
+        </div>
+        <div class="col-md-2 my-1 text-center">
+        OR
+        </div>
+        <div class="col-md-5 my-1">
+          <label class="sr-only" for="cusinie_select">Cuisines</label>
+          <%= select_tag 'cuisine_select', options_for_select(@cuisines.collect{ |c| [c.name, c.name] }), class: "form-control", prompt: "Select a Cuisine"%>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="row mt-3">
-  <div id="all-restaurants" class="col-12">
-    <!-- restaurant data will be loaded here -->
-  </div>
-  <div id="no-restaurants" class="col-12 comments-media">
-    No Restaurants Found.
+  <div class="row mt-3">
+    <div id="all-restaurants" class="col-12">
+      <!-- restaurant data will be loaded here -->
+    </div>
+    <div id="no-restaurants" class="col-12 comments-media">
+      No Restaurants Found.
+    </div>
   </div>
 </div>

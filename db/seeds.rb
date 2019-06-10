@@ -28,10 +28,10 @@ cuisines = [
 ]
 
 avatars = [
-  {name: "bird", image_url: "avatar.png"},
-  {name: "bear", image_url: "avatar.png"},
-  {name: "cat", image_url: "avatar.png"},
-  {name: "dog", image_url: "avatar.png"}
+  {name: "bird", image_url: "bird.png"},
+  {name: "bear", image_url: "bear.png"},
+  {name: "cat", image_url: "cat.png"},
+  {name: "dog", image_url: "dog.png"}
 ]
 
 users = [
@@ -48,25 +48,25 @@ users = [
 ]
 
 restaurants = [
-  {name: "Tiny Bites", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551231", email: "tiny.bites@eats.net", image_url: "restaurant.jpg"},
-  {name: "Mighty Meals", description: "Don't dine without mighty taste and enjoyable surroundings.", phone: "7035556346", email: "mighty@eats.net", image_url: "restaurant.jpg"},
-  {name: "Taste of the City", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559221", email: "city@eats.net", image_url: "restaurant.jpg"},
-  {name: "Silver Platter", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551268", email: "silver.platter@eats.net", image_url: "restaurant.jpg"},
-  {name: "Dine in-Town", description: "Small food, big taste, come enjoy quality eats.", phone: "7035550282", email: "dine.now@eats.net", image_url: "restaurant.jpg"},
-  {name: "Crash and Cook", description: "Small food, big taste, come enjoy quality eats.", phone: "7035550092", email: "cooks@eats.net", image_url: "restaurant.jpg"},
-  {name: "Gourmet Tastes", description: "Small food, big taste, come enjoy quality eats.", phone: "7035557119", email: "gourmet-tastes@eats.net", image_url: "restaurant.jpg"},
-  {name: "Riverside Restaurant", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559851", email: "riverside@eats.net", image_url: "restaurant.jpg"},
-  {name: "Take a Plate", description: "Small food, big taste, come enjoy quality eats.", phone: "7035557188", email: "take-plate@eats.net", image_url: "restaurant.jpg"},
-  {name: "Your Food Getaway", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551902", email: "getaway-food@eats.net", image_url: "restaurant.jpg"},
-  {name: "Classic Dining", description: "Small food, big taste, come enjoy quality eats.", phone: "7035558789", email: "classicdining@eats.net", image_url: "restaurant.jpg"},
-  {name: "Big Appetite", description: "Small food, big taste, come enjoy quality eats.", phone: "7035552001", email: "appetites@eats.net", image_url: "restaurant.jpg"},
-  {name: "Lunch and Dinner", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551421", email: "lunch-and-dinner@eats.net", image_url: "restaurant.jpg"},
-  {name: "Meet and Eat", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559851", email: "meeteat@eats.net", image_url: "restaurant.jpg"},
-  {name: "Edible Delights and Desserts", description: "Small food, big taste, come enjoy quality eats.", phone: "7035556926", email: "edibles@eats.net", image_url: "restaurant.jpg"},
-  {name: "Food for Thought", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559111", email: "thoughtful@eats.net", image_url: "restaurant.jpg"},
-  {name: "Feed Bag", description: "Small food, big taste, come enjoy quality eats.", phone: "7035552164", email: "feed-bag@eats.net", image_url: "restaurant.jpg"},
-  {name: "Master Chefs", description: "Small food, big taste, come enjoy quality eats.", phone: "7035556621", email: "chefs@eats.net", image_url: "restaurant.jpg"},
-  {name: "No Ordinary Soup", description: "Small food, big taste, come enjoy quality eats.", phone: "7035553217", email: "no-soups@eats.net", image_url: "restaurant.jpg"}
+  {name: "Tiny Bites", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551231", email: "tiny.bites@eats.net", image_url: "restaurant-01.jpg"},
+  {name: "Mighty Meals", description: "Don't dine without mighty taste and enjoyable surroundings.", phone: "7035556346", email: "mighty@eats.net", image_url: "restaurant-02.jpg"},
+  {name: "Taste of the City", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559221", email: "city@eats.net", image_url: "restaurant-03.jpg"},
+  {name: "Silver Platter", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551268", email: "silver.platter@eats.net", image_url: "restaurant-04.jpg"},
+  {name: "Dine in-Town", description: "Small food, big taste, come enjoy quality eats.", phone: "7035550282", email: "dine.now@eats.net", image_url: "restaurant-05.jpg"},
+  {name: "Crash and Cook", description: "Small food, big taste, come enjoy quality eats.", phone: "7035550092", email: "cooks@eats.net", image_url: "restaurant-06.jpg"},
+  {name: "Gourmet Tastes", description: "Small food, big taste, come enjoy quality eats.", phone: "7035557119", email: "gourmet-tastes@eats.net", image_url: "restaurant-07.jpg"},
+  {name: "Riverside Restaurant", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559851", email: "riverside@eats.net", image_url: "restaurant-08.jpg"},
+  {name: "Take a Plate", description: "Small food, big taste, come enjoy quality eats.", phone: "7035557188", email: "take-plate@eats.net", image_url: "restaurant-09.jpg"},
+  {name: "Your Food Getaway", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551902", email: "getaway-food@eats.net", image_url: "restaurant-10.jpg"},
+  {name: "Classic Dining", description: "Small food, big taste, come enjoy quality eats.", phone: "7035558789", email: "classicdining@eats.net", image_url: "restaurant-11.jpg"},
+  {name: "Big Appetite", description: "Small food, big taste, come enjoy quality eats.", phone: "7035552001", email: "appetites@eats.net", image_url: "restaurant-12.jpg"},
+  {name: "Lunch and Dinner", description: "Small food, big taste, come enjoy quality eats.", phone: "7035551421", email: "lunch-and-dinner@eats.net", image_url: "restaurant-13.jpg"},
+  {name: "Meet and Eat", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559851", email: "meeteat@eats.net", image_url: "restaurant-14.jpg"},
+  {name: "Edible Delights and Desserts", description: "Small food, big taste, come enjoy quality eats.", phone: "7035556926", email: "edibles@eats.net", image_url: "restaurant-15.jpg"},
+  {name: "Food for Thought", description: "Small food, big taste, come enjoy quality eats.", phone: "7035559111", email: "thoughtful@eats.net", image_url: "restaurant-16.jpg"},
+  {name: "Feed Bag", description: "Small food, big taste, come enjoy quality eats.", phone: "7035552164", email: "feed-bag@eats.net", image_url: "restaurant-17.jpg"},
+  {name: "Master Chefs", description: "Small food, big taste, come enjoy quality eats.", phone: "7035556621", email: "chefs@eats.net", image_url: "restaurant-18.jpg"},
+  {name: "No Ordinary Soup", description: "Small food, big taste, come enjoy quality eats.", phone: "7035553217", email: "no-soups@eats.net", image_url: "restaurant-19.jpg"}
 ]
 
 comments = [

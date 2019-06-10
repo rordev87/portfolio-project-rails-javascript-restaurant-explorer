@@ -15,15 +15,11 @@
     </header>
 
     <%= render partial: "layouts/notice" %>
-
-    <main class="container">
+    
+    <div>
       <%= yield %>
     </div>
 
-    <footer>
-      <div class="container">
-        <!-- footer content -->
-      </div>
-    </footer>
+    <%= render partial: "layouts/footer" %>
   </body>
 </html>
