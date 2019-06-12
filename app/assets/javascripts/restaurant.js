@@ -1,4 +1,4 @@
-// restaurant
+// Restaurant class
 class Restaurant {
   constructor(obj) {
     this.id = obj.id;
@@ -11,12 +11,14 @@ class Restaurant {
     this.cuisines = obj.cuisines;
   }
 
+  // getter for phone that adds formatting for area codes
   get phone() {
     var re = /\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})/g;
     var subst = '($1) $2-$3';
     return this._phone.replace(re, subst);
   }
 
+  // take array of cuisine objects and build html
   getCuisineNames(cuisines) {
     let cuisinesOutput = "";
     if (cuisines.length > 0) {
@@ -31,6 +33,7 @@ class Restaurant {
     return cuisinesOutput;
   }
 
+  // method used when appending html for multiple restaurants
   multipleHTML() {
     return (`
       <div class="card mb-5">
@@ -59,6 +62,7 @@ class Restaurant {
     `)
   }
 
+  // method used when appending html for a single restaurant
   singleHTML() {
     return (`
       <div class="card mb-3">
@@ -80,6 +84,7 @@ class Restaurant {
     `)
   }
 
+  // method for building the pagination feature on a page for a single restaurant 
   buildPager(currentId, all_ids) {
     let idsString = all_ids.split("|");
     let ids = idsString.map(x => parseInt(x));
@@ -113,6 +118,7 @@ class Restaurant {
     `)
   }
 
+  // method to build comments from json data in a restaurant has_many comments association
   buildComments(commentsData) {
     let commentsArray = []
     if (commentsData.length > 0) {
