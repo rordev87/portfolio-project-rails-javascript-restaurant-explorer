@@ -51,6 +51,7 @@ function buildSingleRestaurant(currentId) {
   if ($("#body-entry").length) {
     clearCommentForm("#body-entry");
     clearCommentForm("#rating-entry");
+    $("#commentErrorText").css("display", "none");
   }
 
   // use the current id for an ajax get request for restaurant data
