@@ -6,7 +6,7 @@ This portfolio project is for website that allows users to view a list of all re
 
 Users can sign-up for a new account and log in and out with an existing account. Only signed in users are able to add new comments, but visitors are able to view existing comments by other users.
 
-Additional features include the incorportation of the [Bootstrap 4](https://getbootstrap.com/) front-end component library, [Font-Awesome](https://fontawesome.com/) icons, and royalty free images from [Pexels.com](https://www.pexels.com/).
+Additional features include the incorporation of the [Bootstrap 4](https://getbootstrap.com/) front-end component library, [Font-Awesome](https://fontawesome.com/) icons, and royalty free images from [Pexels.com](https://www.pexels.com/).
 
 ## Installation
 
