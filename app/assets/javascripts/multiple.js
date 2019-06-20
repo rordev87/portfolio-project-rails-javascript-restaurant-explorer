@@ -13,6 +13,7 @@ $(function () {
     $("#location_select").on("change", function () {
       $("#cuisine_select").val("");
       newFilterRestaurants("location", this.value);
+      // refreshfilterRestaurants();
     })
 
     // cuisine filter
@@ -25,10 +26,17 @@ $(function () {
 
 // utilize a callback function to execute ajax get request, wait for response - assign data to variable - before returning
 function loadData(callback) {
-  $.get("/restaurants.json").done(function (data) {
-    fullData = data;
-    callback(data);
-  });
+  // $.get("/restaurants.json").done(function (data) {
+  //   fullData = data;
+  //   callback(data);
+  // });
+
+  fetch("/restaurants.json")
+    .then(response => response.json())
+    .then(restaurants => {
+      fullData = restaurants;
+      callback(restaurants);
+    });
 }
 
 // build html and append for all restaurants passed via the json data object
@@ -73,3 +81,27 @@ function newFilterRestaurants(type, search) {
   // take new json data and pass it to function for building restaurants and html
   buildAllRestaurants(newData);
 }
+
+// function refreshfilterRestaurants() {
+//   let cuisineChoice = $("#cuisine_select").val();
+//   let locationChoice = $("#location_select").val();
+
+
+//   // let newData = fullData.filter(function (restaurant) {
+//   //   return (restaurant.location["city"] === locationChoice || restaurant.cuisines.some(cuisine => JSON.stringify({
+//   //     name: cuisineChoice
+//   //   }) === JSON.stringify(cuisine)))
+//   // });
+
+//   let newData = fullData.filter(function (restaurant) {
+//     return (restaurant.cuisines.some(cuisine => JSON.stringify({
+//       name: cuisineChoice
+//     }) === JSON.stringify(cuisine)))
+//   });
+
+//   // let newData = fullData.filter(function (restaurant) {
+//   //   return (restaurant.location["city"] === locationChoice)
+//   // });
+//   // debugger;
+//   buildAllRestaurants(newData);
+// }
